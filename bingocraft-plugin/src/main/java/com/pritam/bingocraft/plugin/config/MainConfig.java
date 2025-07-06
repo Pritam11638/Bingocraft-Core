@@ -1,7 +1,6 @@
 package com.pritam.bingocraft.plugin.config;
 
 import com.pritam.bingocraft.api.configuration.Config;
-import com.pritam.bingocraft.api.utils.Message;
 import com.pritam.bingocraft.plugin.BingocraftCore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -20,6 +19,8 @@ public class MainConfig extends Config {
                 "&bEnjoy your game!",
                 "&cHave fun!"
         ));
+
+        addDefault("save-service.enabled", false);;
 
         try {
             save();
@@ -42,5 +43,13 @@ public class MainConfig extends Config {
         }
 
         return component;
+    }
+
+    public boolean isSaveServiceEnabled() {
+        return getBoolean("save-service.enabled");
+    }
+
+    public void setSaveServiceState(boolean enabled) {
+        set("save-service.enabled", enabled);
     }
 }
