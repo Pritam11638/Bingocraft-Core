@@ -1,8 +1,7 @@
-name: EasyWarps
+name: BingocraftCore
 version: ${version}
 main: com.pritam.bingocraft.plugin.BingocraftCore
 description: Bingocraft-Core plugin.
 authors:
   - Pritam
-website:
 api-version: 1.21.7

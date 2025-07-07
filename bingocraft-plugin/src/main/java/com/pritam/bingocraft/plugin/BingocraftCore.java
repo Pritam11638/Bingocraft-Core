@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
     @Getter private static BingocraftCore plugin;
     @Getter private static MainConfig mainConfig;
-    @Getter private static SaveService saveService;
+    @Getter private SaveService saveService;
 
     @Override
     public void onEnable() {

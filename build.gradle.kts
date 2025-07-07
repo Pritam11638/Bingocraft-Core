@@ -45,8 +45,7 @@ subprojects {
 }
 
 tasks.register("buildAll") {
-    dependsOn("clean")
-    dependsOn(":bingocraft-plugin:shadowJar")
+    dependsOn("clean", ":bingocraft-plugin:shadowJar", ":bingocraft-api:sourcesJar", ":bingocraft-api:publish")
     group = "build"
     description = "Builds all modules and creates a combined jar"
 }
