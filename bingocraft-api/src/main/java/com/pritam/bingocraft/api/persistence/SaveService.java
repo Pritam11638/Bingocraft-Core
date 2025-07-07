@@ -1,10 +1,12 @@
 package com.pritam.bingocraft.api.persistence;
 
+import com.pritam.bingocraft.api.returncodes.SaveServiceReturnCode;
+
 import java.util.concurrent.CompletableFuture;
 
 public interface SaveService {
-    CompletableFuture<Void> save(SaveableObject object, String key);
-    <T extends SaveableObject> CompletableFuture<T> load(String key, Class<T> clazz);
-    CompletableFuture<Boolean> delete(String key);
-    CompletableFuture<Boolean> exists(String key);
+    SaveServiceReturnCode save(String key, SaveableObject object);
+    <T extends SaveableObject> CompletableFuture<SaveServiceReturnCode> load(String key, T emptyInstace);
+    CompletableFuture<SaveServiceReturnCode> delete(String key);
+    CompletableFuture<SaveServiceReturnCode> exists(String key);
 }

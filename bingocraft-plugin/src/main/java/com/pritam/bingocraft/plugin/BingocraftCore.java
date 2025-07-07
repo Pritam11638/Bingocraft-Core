@@ -27,7 +27,7 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
         // Loading configs...
 
         mainConfig = new MainConfig(this);
-        saveService = new SaveService(mainConfig.isSaveServiceEnabled());
+        saveService = new SaveService();
 
         getServer().getPluginManager().registerEvents(new ServerListeners(), this);
 
@@ -36,6 +36,8 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
 
     @Override
     public void onDisable() {
+        saveService.shutdown();
+
         getLogger().info("Disabled plugin!");
     }
 
