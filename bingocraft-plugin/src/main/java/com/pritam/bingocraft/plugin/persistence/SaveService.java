@@ -58,7 +58,6 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
                 cache = CacheBuilder.newBuilder()
                         .maximumSize(meta.getCacheSize())
                         .expireAfterAccess(meta.getCacheDuration(), TimeUnit.SECONDS)
-                        .recordStats()
                         .build();
 
                 serviceEnabled = true;
@@ -75,6 +74,7 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
     @Override
     public SaveServiceReturnCode save(String key, SaveableObject object) {
         if (!enabled) return SaveServiceReturnCode.OFFLINE;
+        if (key == null || key.isBlank()) return SaveServiceReturnCode.INVALID_KEY;
 
         queuedObjects.add(new Pair<>(key, object));
         cachedObjects.put(key, object);
@@ -85,6 +85,7 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
     @Override
     public <T extends SaveableObject> CompletableFuture<SaveServiceReturnCode> load(String key, T emptyInstance) {
         if (!enabled) return CompletableFuture.completedFuture(SaveServiceReturnCode.OFFLINE);
+        if (key == null || key.isBlank()) return CompletableFuture.completedFuture(SaveServiceReturnCode.INVALID_KEY);
 
         return CompletableFuture.supplyAsync(() -> {
             SaveableObject cached = cachedObjects.getIfPresent(key);
@@ -115,6 +116,7 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
     @Override
     public CompletableFuture<SaveServiceReturnCode> delete(String key) {
         if (!enabled) return CompletableFuture.completedFuture(SaveServiceReturnCode.OFFLINE);
+        if (key == null || key.isBlank()) return CompletableFuture.completedFuture(SaveServiceReturnCode.INVALID_KEY);
 
         return CompletableFuture.supplyAsync(() -> {
             cachedObjects.invalidate(key);
@@ -132,6 +134,7 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
     @Override
     public CompletableFuture<SaveServiceReturnCode> exists(String key) {
         if (!enabled) return CompletableFuture.completedFuture(SaveServiceReturnCode.OFFLINE);
+        if (key == null || key.isBlank()) return CompletableFuture.completedFuture(SaveServiceReturnCode.INVALID_KEY);
 
         return CompletableFuture.supplyAsync(() -> {
             if (cachedObjects.getIfPresent(key) != null) return SaveServiceReturnCode.EXISTS;
@@ -187,8 +190,7 @@ public class SaveService implements com.pritam.bingocraft.api.persistence.SaveSe
         flushQueuedObjects();
         try {
             connection.close();
-            CacheStats stats = cachedObjects.stats();
-            BingocraftCore.getPlugin().getLogger().info("SaveService shut down. Cache stats: " + stats);
+            BingocraftCore.getPlugin().getLogger().info("SaveService shut down.");
         } catch (SQLException e) {
             BingocraftCore.getPlugin().getLogger().log(Level.WARNING, "Error closing database connection", e);
         }

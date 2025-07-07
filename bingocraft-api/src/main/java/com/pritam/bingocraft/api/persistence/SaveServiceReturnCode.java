@@ -7,4 +7,5 @@ public enum SaveServiceReturnCode {
     KEY_NOT_FOUND,
     EXISTS,
     NOT_EXISTS,
+    INVALID_KEY,
 }
