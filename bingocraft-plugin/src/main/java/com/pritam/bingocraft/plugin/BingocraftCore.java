@@ -2,6 +2,7 @@ package com.pritam.bingocraft.plugin;
 
 import com.pritam.bingocraft.api.BingocraftAPI;
 import com.pritam.bingocraft.plugin.config.MainConfig;
+import com.pritam.bingocraft.plugin.diagnostic.SaveServiceDiagnosticCommand;
 import com.pritam.bingocraft.plugin.listeners.ServerListeners;
 import com.pritam.bingocraft.plugin.persistence.SaveService;
 import lombok.Getter;
@@ -30,6 +31,10 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
         saveService = new SaveService();
 
         getServer().getPluginManager().registerEvents(new ServerListeners(), this);
+
+        // Register diagnostic command
+        this.getCommand("saveservice-diagnostic").setExecutor(new SaveServiceDiagnosticCommand());
+        this.getCommand("saveservice-diagnostic").setTabCompleter(new SaveServiceDiagnosticCommand());
 
         getLogger().info("Enabled plugin!");
     }

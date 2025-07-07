@@ -6,3 +6,10 @@ authors:
   - Pritam
 website:
 api-version: 1.21.7
+
+commands:
+  saveservice-diagnostic:
+    description: Diagnostic tools for SaveService
+    usage: /saveservice-diagnostic <status|config|database|serialization|operations|cache|stress|full>
+    permission: bingocraft.admin
+    permission-message: You don't have permission to use this command
