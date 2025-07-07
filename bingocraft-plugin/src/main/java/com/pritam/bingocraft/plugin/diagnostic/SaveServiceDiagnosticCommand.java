@@ -42,6 +42,12 @@ public class SaveServiceDiagnosticCommand implements CommandExecutor, TabComplet
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // Check permissions
+        if (!sender.hasPermission("bingocraft.admin")) {
+            sender.sendMessage(Component.text("You don't have permission to use this command.", NamedTextColor.RED));
+            return true;
+        }
+        
         if (args.length == 0) {
             sendHelp(sender);
             return true;

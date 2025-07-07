@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# SaveService Diagnostic Tool Usage Examples
+# This script shows example commands for diagnosing SaveService issues
+
+echo "=== SaveService Diagnostic Tool Usage Examples ==="
+echo ""
+
+echo "1. Quick Status Check:"
+echo "/saveservice-diagnostic status"
+echo "   Purpose: Check if SaveService is enabled (likely shows DISABLED)"
+echo ""
+
+echo "2. Configuration Analysis:"
+echo "/saveservice-diagnostic config"
+echo "   Purpose: Validate all configuration settings"
+echo "   Expected: Will show 'enabled: false' explaining 0% success rate"
+echo ""
+
+echo "3. Database Connectivity Test:"
+echo "/saveservice-diagnostic database"  
+echo "   Purpose: Test SQLite database access and structure"
+echo "   Expected: May fail if service is disabled"
+echo ""
+
+echo "4. Object Serialization Test:"
+echo "/saveservice-diagnostic serialization"
+echo "   Purpose: Verify SaveableObject implementation works correctly"
+echo "   Expected: Should pass regardless of service status"
+echo ""
+
+echo "5. Operations Testing:"
+echo "/saveservice-diagnostic operations"
+echo "   Purpose: Test save/load/delete/exists operations"
+echo "   Expected: Will fail if service is disabled"
+echo ""
+
+echo "6. Cache Performance Test:"
+echo "/saveservice-diagnostic cache"
+echo "   Purpose: Test cache functionality and performance"
+echo "   Expected: Will fail if service is disabled"
+echo ""
+
+echo "7. Stress Testing:"
+echo "/saveservice-diagnostic stress 100"
+echo "   Purpose: Run 100 operation cycles to test under load"
+echo "   Expected: 0% success if service disabled, high success if enabled"
+echo ""
+
+echo "8. Full Diagnostic Suite:"
+echo "/saveservice-diagnostic full"
+echo "   Purpose: Run all tests in sequence for complete analysis"
+echo "   Expected: Comprehensive report showing all issues"
+echo ""
+
+echo "=== Troubleshooting Workflow ==="
+echo ""
+echo "STEP 1: Run status check to verify service state"
+echo "        /saveservice-diagnostic status"
+echo ""
+echo "STEP 2: If disabled, check configuration"
+echo "        /saveservice-diagnostic config"
+echo ""
+echo "STEP 3: Enable SaveService in config.yml:"
+echo "        save-service:"
+echo "          enabled: true"
+echo "          save-interval: 60"
+echo "          cache-duration: 300" 
+echo "          cache-size: 1000"
+echo ""
+echo "STEP 4: Restart server and run full diagnostic"
+echo "        /saveservice-diagnostic full"
+echo ""
+echo "STEP 5: Run stress test to validate under load"
+echo "        /saveservice-diagnostic stress 500"
+echo ""
+
+echo "=== Expected Root Cause ==="
+echo "The 0% success rate is likely caused by SaveService being disabled"
+echo "by default in the configuration (save-service.enabled: false)."
+echo "This diagnostic tool will confirm this and provide steps to fix it."

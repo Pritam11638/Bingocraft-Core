@@ -33,8 +33,14 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
         getServer().getPluginManager().registerEvents(new ServerListeners(), this);
 
         // Register diagnostic command
-        this.getCommand("saveservice-diagnostic").setExecutor(new SaveServiceDiagnosticCommand());
-        this.getCommand("saveservice-diagnostic").setTabCompleter(new SaveServiceDiagnosticCommand());
+        SaveServiceDiagnosticCommand diagnosticCommand = new SaveServiceDiagnosticCommand();
+        if (this.getCommand("saveservice-diagnostic") != null) {
+            this.getCommand("saveservice-diagnostic").setExecutor(diagnosticCommand);
+            this.getCommand("saveservice-diagnostic").setTabCompleter(diagnosticCommand);
+            getLogger().info("SaveService diagnostic command registered successfully");
+        } else {
+            getLogger().warning("Failed to register saveservice-diagnostic command");
+        }
 
         getLogger().info("Enabled plugin!");
     }
