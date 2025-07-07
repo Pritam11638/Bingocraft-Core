@@ -2,7 +2,7 @@ package com.pritam.bingocraft.plugin.config;
 
 import com.pritam.bingocraft.api.configuration.Config;
 import com.pritam.bingocraft.plugin.BingocraftCore;
-import com.pritam.bingocraft.plugin.meta.SaveServiceMeta;
+import com.pritam.bingocraft.plugin.persistence.SaveServiceMeta;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.plugin.java.JavaPlugin;

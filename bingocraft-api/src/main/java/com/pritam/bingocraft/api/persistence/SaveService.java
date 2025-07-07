@@ -1,7 +1,5 @@
 package com.pritam.bingocraft.api.persistence;
 
-import com.pritam.bingocraft.api.returncodes.SaveServiceReturnCode;
-
 import java.util.concurrent.CompletableFuture;
 
 public interface SaveService {

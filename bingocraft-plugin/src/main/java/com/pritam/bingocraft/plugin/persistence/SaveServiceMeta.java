@@ -1,4 +1,4 @@
-package com.pritam.bingocraft.plugin.meta;
+package com.pritam.bingocraft.plugin.persistence;
 
 import lombok.Getter;
 import lombok.Setter;

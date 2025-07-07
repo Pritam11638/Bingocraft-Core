@@ -1,4 +1,4 @@
-package com.pritam.bingocraft.api.returncodes;
+package com.pritam.bingocraft.api.persistence;
 
 public enum SaveServiceReturnCode {
     OFFLINE,
