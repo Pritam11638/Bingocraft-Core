@@ -134,6 +134,23 @@ public abstract class SidebarView {
     }
 
     /**
+     * Unassigns a player to view this scoreboard.
+     *
+     * <p>The player will stop receiving this scoreboard on their next update cycle.
+     * If the player wasn't assigned, this method has no effect.</p>
+     *
+     * @param playerId UUID of the player to assign to this scoreboard
+     */
+    public void unassignPlayer(UUID playerId) {
+        players.remove(playerId);
+        lastLiteralLines.remove(playerId);
+        Player player = Bukkit.getPlayer(playerId);
+        if (player != null && player.isOnline() && player.getScoreboard().getObjective(SCOREBOARD_ID) != null) {
+            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+        }
+    }
+
+    /**
      * Updates the scoreboard title for all assigned players.
      *
      * <p>The title message will receive placeholders including the viewing player's name.
@@ -239,7 +256,7 @@ public abstract class SidebarView {
                 team.addEntry(entry);
                 team.prefix(prefix);
                 team.suffix(suffix);
-                objective.getScore(entry).setScore(score--);
+                objective.getScore(entry).setScore(score);
             }
         }
 
@@ -296,6 +313,7 @@ public abstract class SidebarView {
                 if (prefix.equals(Component.empty()) && suffix.equals(Component.empty())) {
                     team.prefix(Component.empty());
                     team.suffix(Component.empty());
+		            scoreboard.resetScores(uniqueEntries.get(i));
                     continue;
                 }
 
