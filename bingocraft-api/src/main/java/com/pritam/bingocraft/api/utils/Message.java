@@ -3,6 +3,7 @@ package com.pritam.bingocraft.api.utils;
 import net.kyori.adventure.text.Component;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -33,26 +34,26 @@ import java.util.function.Function;
  * Component component = welcomeMessage.getComponent(placeholders);
  * }</pre>
  *
- * @author KakorinMC Development Team
+ * @author Pritam
  * @since 1.0.0
  */
 public class Message {
     /**
      * Function that builds the Adventure Text Component from placeholders.
      */
-    private final Function<HashMap<String, String>, Component> componentBuilder;
+    private final Function<Map<String, String>, Component> componentBuilder;
 
     /**
      * Default placeholder values to use when placeholders are not provided.
      */
-    private HashMap<String, String> defaultPlaceholders = new HashMap<>();
+    private Map<String, String> defaultPlaceholders = new HashMap<>();
 
     /**
      * Creates a new message with the specified component builder.
      *
      * @param componentBuilder function that converts placeholders to a Component
      */
-    public Message(Function<HashMap<String, String>, Component> componentBuilder) {
+    public Message(Function<Map<String, String>, Component> componentBuilder) {
         this.componentBuilder = componentBuilder;
     }
 
@@ -65,7 +66,7 @@ public class Message {
      * @param componentBuilder function that converts placeholders to a Component
      * @param defaultPlaceholders default placeholder values to use
      */
-    public Message(Function<HashMap<String, String>, Component> componentBuilder, HashMap<String, String> defaultPlaceholders) {
+    public Message(Function<Map<String, String>, Component> componentBuilder, Map<String, String> defaultPlaceholders) {
         this.componentBuilder = componentBuilder;
         this.defaultPlaceholders = defaultPlaceholders;
     }
@@ -80,7 +81,7 @@ public class Message {
      * @param placeholders the placeholder values to substitute in the message
      * @return the generated Adventure Text Component
      */
-    public Component getComponent(HashMap<String, String> placeholders) {
+    public Component getComponent(Map<String, String> placeholders) {
         defaultPlaceholders.forEach(placeholders::putIfAbsent);
         return componentBuilder.apply(placeholders);
     }

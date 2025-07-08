@@ -7,7 +7,7 @@ plugins {
 dependencies {
     compileOnly(rootProject.ext["paperApi"].toString())
     implementation(project(":bingocraft-api"))
-    implementation("org.xerial:sqlite-jdbc:3.47.1.0")
+    compileOnly("org.xerial:sqlite-jdbc:3.47.1.0")
 }
 
 java {

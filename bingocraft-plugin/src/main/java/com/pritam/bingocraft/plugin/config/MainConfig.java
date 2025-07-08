@@ -21,10 +21,27 @@ public class MainConfig extends Config {
                 "&cHave fun!"
         ));
 
+        setComments("motd", List.of(
+                "This is the Message of the Day (MOTD) displayed to players.",
+                "Legacy formatting codes are supported. (&a, &6, &b, &c, etc.)",
+                "Each line will be displayed separately."
+        ));
+        ;
         addDefault("save-service.enabled", false);
         addDefault("save-service.save-interval", 60);
         addDefault("save-service.cache-duration", 300);
         addDefault("save-service.cache-size", 1000);
+        setComments("save-service", List.of(
+                "save-service.enabled: Whether the save service should be enabled.",
+                "save-service.save-interval: Interval in seconds to save game data.",
+                "save-service.cache-duration: Duration in seconds to keep cached data.",
+                "save-service.cache-size: Maximum number of cached entries."
+        ));
+
+        addDefault("sidebar.update-interval", 20);
+        setComments("sidebar", List.of(
+                "sidebar.update-interval: Interval in ticks to update the sidebar for players."
+        ));
 
         try {
             save();
@@ -49,6 +66,10 @@ public class MainConfig extends Config {
         return component;
     }
 
+    public void setMotd(List<String> motd) {
+        set("motd", motd);
+    }
+
     public SaveServiceMeta getSaveServiceMeta() {
         boolean enabled = getBoolean("save-service.enabled");
         int saveInterval = getInt("save-service.save-interval");
@@ -68,5 +89,13 @@ public class MainConfig extends Config {
         } catch (IOException e) {
             BingocraftCore.getPlugin().getLogger().log(Level.SEVERE, "Could not update save service meta!", e);
         }
+    }
+
+    public int getSidebarUpdateInterval() {
+        return getInt("sidebar.update-interval");
+    }
+
+    public void setSidebarUpdateInterval(int interval) {
+        set("sidebar.update-interval", interval);
     }
 }

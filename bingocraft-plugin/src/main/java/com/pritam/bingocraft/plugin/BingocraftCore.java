@@ -4,6 +4,7 @@ import com.pritam.bingocraft.api.BingocraftAPI;
 import com.pritam.bingocraft.plugin.config.MainConfig;
 import com.pritam.bingocraft.plugin.listeners.ServerListeners;
 import com.pritam.bingocraft.plugin.persistence.SaveService;
+import com.pritam.bingocraft.plugin.sidebar.SidebarService;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -17,6 +18,7 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
     @Getter private static BingocraftCore plugin;
     @Getter private static MainConfig mainConfig;
     @Getter private SaveService saveService;
+    @Getter private SidebarService sidebarService;
 
     @Override
     public void onEnable() {
@@ -28,6 +30,9 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
 
         mainConfig = new MainConfig(this);
         saveService = new SaveService();
+        sidebarService = new SidebarService();
+
+        sidebarService.start(mainConfig.getSidebarUpdateInterval());
 
         getServer().getPluginManager().registerEvents(new ServerListeners(), this);
 
@@ -37,6 +42,7 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
     @Override
     public void onDisable() {
         saveService.shutdown();
+        sidebarService.stop();
 
         getLogger().info("Disabled plugin!");
     }
@@ -45,6 +51,6 @@ public class BingocraftCore extends JavaPlugin implements BingocraftAPI {
     public void setMOTD(Component motd) {
         LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
         String combined = serializer.serialize(motd);
-        mainConfig.set("motd", Arrays.asList(combined.split("\\n", -1)));
+        mainConfig.setMotd(Arrays.asList(combined.split("\\n", -1)));
     }
 }

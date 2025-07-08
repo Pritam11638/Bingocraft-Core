@@ -1,6 +1,7 @@
 name: BingocraftCore
 version: ${version}
 main: com.pritam.bingocraft.plugin.BingocraftCore
+loader: com.pritam.bingocraft.plugin.boot.BingocraftCoreLoader
 description: Bingocraft-Core plugin.
 authors:
   - Pritam
